@@ -1,0 +1,18 @@
+{
+  "manifest_version": 2,
+
+  "name": "Read Comments",
+  "description": "Read all comments from the current forum",
+  "version": "1.0",
+
+  "content_scripts": [{
+    "matches": ["*://*.epic-sam.net/Learn/Player.aspx*", "*://localhost/*"],
+    "run_at": "document_start",
+    "js": ["content.js"]
+  }],
+
+  "permissions": [
+  ],
+
+  "web_accessible_resources": ["content.js", "injected.js"]
+}
