@@ -3,7 +3,7 @@
 
   "name": "Read Comments",
   "description": "Read all comments from the current forum",
-  "version": "1.0",
+  "version": "0.0.1",
 
   "content_scripts": [{
     "matches": ["*://*.epic-sam.net/Learn/Player.aspx*", "*://localhost/*"],
