@@ -6,7 +6,7 @@
   "version": "0.0.2",
 
   "content_scripts": [{
-    "matches": ["https://siglo21.epic-sam.net/*", "*://localhost/*"],
+    "matches": ["https://siglo21.epic-sam.net/*"],
     "run_at": "document_start",
     "js": ["content.js"]
   }],
