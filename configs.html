@@ -1,26 +1,57 @@
-<h1>Tuenti Uan Config</h1>
+<style type="text/css" media="all">
+	.configBox {
+		margin: auto;
+		width: 40%;
+		border: 3px solid #73AD21;
+		padding: 10px;
+	}
 
-<p><span id="status"></span></p>
+	.statusBox {
+		margin: auto;
+		width: 10%;
+	}
 
-<form id="tuentiuan_form">
-  <p>
-    <label for="autoread_messages">Autoread Msg</label>
-    <input id="autoread_messages" name="autoread_messages" type="checkbox" />
-  </p>
+	#tuentiuan_form {
+		margin: auto;
+		width: 40%;
+	}
 
-  <p>
-    <label for="autoread_events">Autoread Events</label>
-    <input id="autoread_events" name="autoread_events" type="checkbox" />
-  </p>
+	input {
+		width: 13px;
+		height: 13px;
+		padding: 0;
+		margin:0;
+		float: right;
+	}
+</style>
 
-  <p>
-    <label for="autoread_notifications">Autoread Notifications</label>
-    <input id="autoread_notifications" name="autoread_notifications" type="checkbox" />
-  </p>
-  <p>
-    <label for="read_forum_notifications">Only Read Forum Notifications</label>
-    <input id="read_forum_notifications" name="read_forum_notifications" type="checkbox" />
-  </p>
-</form>
+<div class="configBox">
+	<h1>Tuenti Uan Config</h1>
 
-<script src="configs.js"></script>
+	<form id="tuentiuan_form">
+		<p>
+			<label for="autoread_messages">Autoread messages</label>
+			<input id="autoread_messages" name="autoread_messages" type="checkbox" />
+		</p>
+
+		<p>
+			<label for="autoread_events">Autoread events</label>
+			<input id="autoread_events" name="autoread_events" type="checkbox" />
+		</p>
+
+		<p>
+			<label for="autoread_notifications">Autoread notifications</label>
+			<input id="autoread_notifications" name="autoread_notifications" type="checkbox" />
+		</p>
+		<p>
+			<label for="read_forum_notifications">Only Read Forum Notifications</label>
+			<input id="read_forum_notifications" name="read_forum_notifications" type="checkbox" />
+		</p>
+	</form>
+
+	<div class="statusBox">
+		<p><span id="status"></span></p>
+	</div>
+
+	<script src="configs.js"></script>
+</div>
