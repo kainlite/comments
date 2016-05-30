@@ -1,66 +1,74 @@
-window.tuentiUan = window.tuentiUan || {};
-
-window.tuentiUan.customGet = function(url, data, successMsg) {
-	$.ajax({
-		type: "GET",
-		url: url,
-		contentType: "application/json",
-		dataType: "xml",
-		data: data,
-		success: function (result) {
-			console.log(successMsg || result);
-			return result;
-		},
-		error: function (result) {
-			console.log(result);
-			return result;
-		}
-	})
-};
-
-window.tuentiUan.getFromStorage = function(field) {
-	var value;
-
-	chrome.storage.sync.get('tuentiUanConfig', function(config) {
-		value = config['tuentiUanConfig'][field];
-	});
-
-	return value;
-};
-
 (function () {
-
-	document.addEventListener("DOMContentLoaded", function () {
-		contentBody = document.getElementById("contentBody");
-		contentBody.addEventListener("load", function () {
-			rawContent = contentBody.contentDocument.getElementById("rawContent");
-			if (rawContent) {
-				var s = document.createElement("script");
-				s.src = chrome.extension.getURL('injected.js');
-				s.onload = function() {
-					this.parentNode.removeChild(this);
-				};
-
-				(document.head||document.documentElement).appendChild(s);
+	var populateStorageAndFireTasks = function() {
+		initialState = {
+			Config: {
+				autoread_messages:			false,
+				autoread_events:				false,
+				autoread_notifications: false,
+				read_forum_notifications: true,
 			}
+		};
+
+		chrome.storage.sync.get('Config', function(config) {
+			if (!(Object.getOwnPropertyNames(config).length > 0)) {
+				chrome.storage.sync.set(initialState, function() {
+					console.log("Saved initial state...");
+					Config = initialState;
+				})
+			} else {
+					Config = config['Config'];
+			}
+
+			go(Config);
 		});
+	};
 
+	var injectScripts = function (scriptName) {
+		document.addEventListener("DOMContentLoaded", function () {
+			contentBody = document.getElementById("contentBody");
+			contentBody.addEventListener("load", function () {
+				rawContent = contentBody.contentDocument.getElementById("rawContent");
+				if (rawContent) {
+					var s = document.createElement("script");
+					s.src = chrome.extension.getURL(scriptName);
+					s.onload = function() {
+						this.parentNode.removeChild(this);
+					};
 
-		if (tuentiUan.getFromStorage('read_forum_notifications')) {
-			keys = Object.keys(document.getElementById("contentBody").contentDocument.getElementById("rawContent").contentDocument.defaultView.window.messages);
-
-			for (var i = 0, l = keys.length; i < l; i ++) {
-				notificationId = keys[i];
-				if (notificationId !== "discussionRoot") {
-					var url = "https://siglo21.epic-sam.net/Content/Forum/Update.ashx?courseid=" + courseId +"&sectionid=" + sectionId + "&enrollmentid=" + enrollmentId + "&itemid=" + itemId + "&messageid=" + notificationId + "  &actiontype=updateviewed&_dc=14339";
-
-					window.tuentiUan.customGet(
-							url,
-							{},
-							"Message ID: " + notificationId + " readed."
-							);
+					(document.head||document.documentElement).appendChild(s);
 				}
-			}
+			});
+		});
+	};
+
+	var go = function (Config) {
+		// First inject utilities
+		injectScripts("inject_scripts.js");
+
+		// Maybe we can refactor this later, as of today it's not worth the time...
+		if (Config['autoread_messages'] === true) {
+			// TODO: Implement autoread_messages.js
+			console.log("Injecting autoread_messages");
+			// injectScripts("autoread_messages.js");
 		}
-	});
+
+		if (Config['autoread_events'] === true) {
+			// TODO: Implement autoread_events.js
+			console.log("Injecting autoread_events");
+			// injectScripts("autoread_events.js");
+		}
+
+		if (Config['autoread_notifications'] === true) {
+			// TODO: Implement autoread_notifications.js
+			console.log("Injecting autoread_notifications");
+			// injectScripts("autoread_notifications.js");
+		}
+
+		if (Config['read_forum_notifications'] === true) {
+			console.log("Injecting read_forum_notifications");
+			injectScripts("read_forum_notifications.js");
+		}
+	}
+
+	populateStorageAndFireTasks();
 })();

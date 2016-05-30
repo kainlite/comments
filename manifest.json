@@ -18,5 +18,12 @@
 
   "options_page": "configs.html",
 
-  "web_accessible_resources": ["content.js", "injected.js"]
+  "web_accessible_resources": [
+    "content.js", 
+    "autoread_messages.js", 
+    "autoread_events.js",
+    "autoread_notifications.js",
+    "read_forum_notifications.js", 
+    "inject_scripts.js"
+  ]
 }

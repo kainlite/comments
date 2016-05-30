@@ -1,7 +1,7 @@
 var inputs = document.querySelectorAll('input'),
     i,
 
-    data = {tuentiUanConfig: {}},
+    data = {Config: {}},
 
     saveConfig = function(data) {
         chrome.storage.sync.set(data, function() {
@@ -18,9 +18,9 @@ var inputs = document.querySelectorAll('input'),
     restoreConfig = function(input) {
         var field = input.name;
 
-        chrome.storage.sync.get('tuentiUanConfig', function(config) {
-            data = config;
-            value = config['tuentiUanConfig'][field] || false;
+        chrome.storage.sync.get('Config', function(config) {
+            data = config || data;
+            value = config['Config'][field] || false;
 
             if (value) {
                 if (input.type === 'checkbox') {
@@ -45,7 +45,7 @@ for (i = 0; i < inputs.length; i++) {
             value = element.checked;
         }
 
-        data.tuentiUanConfig[element.name] = value;
+        data.Config[element.name] = value;
 
         saveConfig(data);
     });
