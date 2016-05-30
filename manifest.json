@@ -3,16 +3,20 @@
 
   "name": "Read Comments",
   "description": "Read all comments from the current forum",
-  "version": "0.0.1",
+  "version": "0.0.2",
 
   "content_scripts": [{
-    "matches": ["*://*.epic-sam.net/Learn/Player.aspx*", "*://localhost/*"],
+    "matches": ["https://siglo21.epic-sam.net/*", "*://localhost/*"],
     "run_at": "document_start",
     "js": ["content.js"]
   }],
 
   "permissions": [
+    "storage",
+    "unlimitedStorage"
   ],
+
+  "options_page": "configs.html",
 
   "web_accessible_resources": ["content.js", "injected.js"]
 }
