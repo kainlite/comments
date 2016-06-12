@@ -66,6 +66,11 @@
 		// First inject utilities
 		injectScripts("inject_scripts.js");
 
+		if (Config['enhance_styles'] === true) {
+			console.log("Injecting styles");
+			injectStyles("styles.css");
+		}
+
 		// Maybe we can refactor this later, as of today it's not worth the time...
 		if (Config['autoread_messages'] === true) {
 			// TODO: Implement autoread_messages.js
@@ -88,11 +93,6 @@
 		if (Config['read_forum_notifications'] === true) {
 			console.log("Injecting read_forum_notifications");
 			injectScripts("read_forum_notifications.js");
-		}
-
-		if (Config['enhance_styles'] === true) {
-			console.log("Injecting styles");
-			injectStyles("styles.css");
 		}
 	}
 
