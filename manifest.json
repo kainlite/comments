@@ -8,7 +8,8 @@
   "content_scripts": [{
     "matches": ["https://siglo21.epic-sam.net/*"],
     "run_at": "document_start",
-    "js": ["content.js"]
+    "js": ["content.js"],
+    "css": ["styles.css"]
   }],
 
   "permissions": [
@@ -19,11 +20,12 @@
   "options_page": "configs.html",
 
   "web_accessible_resources": [
-    "content.js", 
-    "autoread_messages.js", 
+    "content.js",
+    "autoread_messages.js",
     "autoread_events.js",
     "autoread_notifications.js",
-    "read_forum_notifications.js", 
+    "read_forum_notifications.js",
+    "styles.css",
     "inject_scripts.js"
   ]
 }

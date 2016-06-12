@@ -41,6 +41,27 @@
 		});
 	};
 
+	var injectStyles = function (scriptName) {
+		document.addEventListener("DOMContentLoaded", function () {
+			contentBody = document.getElementById("contentBody");
+			contentBody.addEventListener("load", function () {
+				rawContent = contentBody.contentDocument.getElementById("rawContent");
+				if (rawContent) {
+					var link = document.createElement("link");
+					link.href = chrome.extension.getURL(scriptName);
+					link.type = "text/css";
+					link.rel = "stylesheet";
+
+					link.onload = function() {
+						this.parentNode.removeChild(this);
+					};
+
+					(document.head||document.documentElement).appendChild(link);
+				}
+			});
+		});
+	};
+
 	var go = function (Config) {
 		// First inject utilities
 		injectScripts("inject_scripts.js");
@@ -67,6 +88,11 @@
 		if (Config['read_forum_notifications'] === true) {
 			console.log("Injecting read_forum_notifications");
 			injectScripts("read_forum_notifications.js");
+		}
+
+		if (Config['enhance_styles'] === true) {
+			console.log("Injecting styles");
+			injectStyles("styles.css");
 		}
 	}
 
