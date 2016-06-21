@@ -2,10 +2,11 @@
 	var populateStorageAndFireTasks = function() {
 		initialState = {
 			Config: {
-				autoread_messages:			false,
-				autoread_events:				false,
-				autoread_notifications: false,
+				autoread_messages:				false,
+				autoread_events:					false,
+				autoread_notifications:		false,
 				read_forum_notifications: true,
+				enhance_styles:						false,
 			}
 		};
 
